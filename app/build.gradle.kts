@@ -71,6 +71,10 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     //okhttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     //image loading
     implementation("io.coil-kt:coil-compose:2.4.0")
 
@@ -83,5 +87,10 @@ dependencies {
     // glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
 }
