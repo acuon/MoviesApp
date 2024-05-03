@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.acuon.moviesapp.domain.model.MovieItem" />
+
+        <import type="com.acuon.moviesapp.R" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:elevation="@dimen/_16dp">
+
+        <ImageView
+            android:id="@+id/iv_poster"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_0dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{item.poster}"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4dp"
+            android:background="@drawable/bg_rounded_transparent_grey"
+            android:padding="@dimen/_10dp"
+            app:layout_constraintEnd_toEndOf="@id/iv_poster"
+            app:layout_constraintTop_toTopOf="@id/iv_poster">
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp"
+                app:imageUrl="@{item.isFavorite ? R.drawable.ic_favorite_filled : R.drawable.ic_favorite}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_favorite_filled" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent_grey"
+            android:paddingVertical="@dimen/_8dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_poster">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/_4dp"
+                android:text="@{`Price: ` + item.price + item.currency}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginBottom="@dimen/_8dp"
+                tools:text="Price: 100USD" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_poster">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.name}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="track name" />
+
+            <TextView
+                android:id="@+id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:text="@{item.prettyDate}"
+                android:textAlignment="textStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/ts_16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="date" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="@dimen/_2dp"
+                android:layout_height="@dimen/_2dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@color/divider_grey"
+                app:layout_constraintBottom_toBottomOf="@id/tv_release_date"
+                app:layout_constraintStart_toEndOf="@id/tv_release_date"
+                app:layout_constraintTop_toTopOf="@id/tv_release_date" />
+
+            <TextView
+                android:id="@+id/tv_movie_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/ts_16sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_release_date"
+                app:layout_constraintStart_toEndOf="@id/divider"
+                app:layout_constraintTop_toTopOf="@id/tv_release_date"
+                app:text="@{item.lengthInMinutes}"
+                tools:text="length" />
+
+            <View
+                android:id="@+id/divider_2"
+                android:layout_width="@dimen/_2dp"
+                android:layout_height="@dimen/_2dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@color/divider_grey"
+                app:layout_constraintBottom_toBottomOf="@id/tv_movie_length"
+                app:layout_constraintStart_toEndOf="@id/tv_movie_length"
+                app:layout_constraintTop_toTopOf="@id/tv_movie_length" />
+
+            <TextView
+                android:id="@+id/tv_content_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@drawable/bg_rounded_corner_8dp_white_stroke"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/_4dp"
+                android:text="@{item.contentAdvisoryRating}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_12sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_movie_length"
+                app:layout_constraintStart_toEndOf="@id/divider_2"
+                app:layout_constraintTop_toTopOf="@id/tv_movie_length"
+                tools:text="content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

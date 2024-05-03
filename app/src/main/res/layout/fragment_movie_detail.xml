@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movieUiState"
+            type="com.acuon.moviesapp.ui.movie_detail.MovieDetailUIState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:paddingTop="@dimen/_16dp"
+        android:paddingBottom="@dimen/_8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_movie_poster"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_24dp"
+            android:layout_marginEnd="@dimen/_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_poster"
+                android:layout_width="@dimen/_100dp"
+                android:layout_height="@dimen/_0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background"
+                app:imageUrl="@{movieUiState.data.poster}"
+                app:layout_constraintDimensionRatio="2:3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:text="@{movieUiState.data.name}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_poster"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="track name" />
+
+            <TextView
+                android:id="@+id/tv_short_desc"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:layout_marginBottom="@dimen/_4dp"
+                android:text="@{movieUiState.data.shortDescription}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_poster"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="description \ndescription" />
+
+            <TextView
+                android:id="@+id/tv_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@drawable/bg_rounded_corner_8dp_white_stroke"
+                android:padding="@dimen/_4dp"
+                android:text="@{movieUiState.data.genre}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_16sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+                app:layout_constraintStart_toEndOf="@id/iv_poster"
+                tools:text="Adventure" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{`Price: ` + movieUiState.data.price + movieUiState.data.currency}"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/ts_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container_movie_poster"
+            app:layout_goneMarginBottom="@dimen/_8dp"
+            tools:text="Price: 100USD" />
+
+        <LinearLayout
+            android:id="@+id/container_movie_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_price">
+
+            <TextView
+                android:id="@+id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieUiState.data.prettyDateFull}"
+                android:textAlignment="textStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/ts_16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:text="date" />
+
+            <View
+                android:layout_width="@dimen/_2dp"
+                android:layout_height="@dimen/_2dp"
+                android:layout_marginHorizontal="@dimen/_8dp"
+                android:background="@color/divider_grey" />
+
+            <TextView
+                android:id="@+id/tv_movie_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/ts_16sp"
+                app:text="@{movieUiState.data.lengthInMinutes}"
+                tools:text="length" />
+
+            <View
+                android:layout_width="@dimen/_2dp"
+                android:layout_height="@dimen/_2dp"
+                android:layout_marginHorizontal="@dimen/_8dp"
+                android:background="@color/divider_grey" />
+
+            <TextView
+                android:id="@+id/tv_content_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded_corner_8dp_white_stroke"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="@dimen/_4dp"
+                android:text="@{movieUiState.data.contentAdvisoryRating}"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_12sp"
+                tools:text="content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2dp"
+            android:layout_marginTop="@dimen/_16dp"
+            android:background="@color/divider_grey"
+            app:layout_constraintTop_toBottomOf="@id/container_movie_detail" />
+
+        <RadioGroup
+            android:id="@+id/rg_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider1">
+
+            <RadioButton
+                android:id="@+id/rb_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:background="@drawable/custom_radio_button"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:paddingVertical="@dimen/_8dp"
+                android:text="@string/description"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4dp"
+                android:background="@drawable/custom_radio_button"
+                android:button="@null"
+                android:gravity="start|center_vertical"
+                android:layoutDirection="rtl"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:paddingVertical="@dimen/_8dp"
+                android:text="@string/trailer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/ts_16sp" />
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@color/divider_grey"
+            app:layout_constraintTop_toBottomOf="@id/rg_options" />
+
+        <TextView
+            android:id="@+id/tv_long_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:background="@drawable/bg_rounded_corner_8dp"
+            android:backgroundTint="@color/transparent_grey"
+            android:padding="@dimen/_8dp"
+            android:text="@{movieUiState.data.longDescription}"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            tools:text="Long Description\nLong Description\nLong Description\nLong Description\nLong Description\nLong Description" />
+
+        <WebView
+            android:id="@+id/web_view_trailer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_0dp"
+            android:layout_marginHorizontal="@dimen/_24dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:visibility="gone"
+            app:layout_constraintDimensionRatio="3:2"
+            app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
