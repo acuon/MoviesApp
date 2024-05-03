@@ -1,8 +1,14 @@
 package com.acuon.moviesapp.utils.extensions
 
-import com.acuon.moviesapp.common.Constants
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.concurrent.TimeUnit
+
+object DateFormats {
+    const val SERVER_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    const val PRETTY_DATE_FORMAT = "MMM. dd, yyyy"
+    const val PRETTY_DATE_FORMAT2 = "MMM. yyyy"
+}
 
 fun String?.serverToPrettyDate(
     currentFormat: String,
@@ -23,3 +29,5 @@ fun String?.serverToPrettyDate(
         ""
     }
 }
+
+fun Long.toMinutes(): Long = TimeUnit.MILLISECONDS.toMinutes(this)

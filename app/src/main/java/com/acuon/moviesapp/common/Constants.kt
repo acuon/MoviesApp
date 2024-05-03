@@ -8,3 +8,7 @@ object Constants {
 object Endpoints {
     const val SEARCH = "/search"
 }
+
+object BundleKeys {
+    const val MOVIE_ITEM = "movie_item"
+}
