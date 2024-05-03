@@ -6,8 +6,14 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.acuon.moviesapp.ui.movie_detail.viewmodel.MovieDetailViewModel" />
+
+        <variable
             name="movieUiState"
             type="com.acuon.moviesapp.ui.movie_detail.MovieDetailUIState" />
+
+        <import type="com.acuon.moviesapp.R" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,11 +38,11 @@
                 android:layout_width="@dimen/_100dp"
                 android:layout_height="@dimen/_0dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher_background"
                 app:imageUrl="@{movieUiState.data.poster}"
                 app:layout_constraintDimensionRatio="2:3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -85,6 +91,29 @@
                 app:layout_constraintBottom_toBottomOf="@id/iv_poster"
                 app:layout_constraintStart_toEndOf="@id/iv_poster"
                 tools:text="Adventure" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4dp"
+                android:background="@drawable/bg_rounded_transparent_grey"
+                android:padding="@dimen/_12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_favorite"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:src="@drawable/ic_favorite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

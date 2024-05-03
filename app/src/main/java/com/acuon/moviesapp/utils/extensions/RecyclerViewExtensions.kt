@@ -1,8 +1,25 @@
 package com.acuon.moviesapp.utils.extensions
 
+import android.content.Context
 import android.graphics.Rect
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.acuon.moviesapp.utils.GridLayoutManagerWrapper
+import com.acuon.moviesapp.utils.LinearLayoutManagerWrapper
+
+fun RecyclerView.verticalView(context: Context, stackEnd: Boolean = false) {
+    layoutManager = LinearLayoutManagerWrapper(context).apply { stackFromEnd = stackEnd }
+    layoutManager
+}
+
+fun RecyclerView.horizontalView(context: Context) {
+    layoutManager = LinearLayoutManagerWrapper(context, LinearLayoutManager.HORIZONTAL, false)
+}
+
+fun RecyclerView.gridView(context: Context, spanCount: Int) {
+    layoutManager = GridLayoutManagerWrapper(context, spanCount)
+}
 
 fun RecyclerView.addDecoration(decorator: RecyclerView.ItemDecoration) {
     if (itemDecorationCount == 0) addItemDecoration(decorator)
@@ -11,7 +28,6 @@ fun RecyclerView.addDecoration(decorator: RecyclerView.ItemDecoration) {
 fun createDecorator(value: Int): RecyclerView.ItemDecoration {
     return createDecorator(value, value, value, value)
 }
-
 
 fun createDecorator(top: Int, bottom: Int, left: Int, right: Int): RecyclerView.ItemDecoration {
     return object : RecyclerView.ItemDecoration() {
@@ -32,3 +48,50 @@ fun createDecorator(top: Int, bottom: Int, left: Int, right: Int): RecyclerView.
     }
 }
 
+fun createGridDecorator(
+    value: Int,
+    spanCount: Int,
+    includeEdge: Boolean
+): RecyclerView.ItemDecoration {
+    return createGridDecorator(value, value, value, value, spanCount, includeEdge)
+}
+
+fun createGridDecorator(
+    top: Int,
+    bottom: Int,
+    left: Int,
+    right: Int,
+    spanCount: Int,
+    includeEdge: Boolean
+): RecyclerView.ItemDecoration {
+    return object : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            val position = parent.getChildAdapterPosition(view) // item position
+            val column = position % spanCount // item column
+
+            if (includeEdge) {
+                outRect.left =
+                    left - column * left / spanCount // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right =
+                    (column + 1) * right / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = top
+                }
+                outRect.bottom = bottom // item bottom
+            } else {
+                outRect.left = column * left / spanCount // column * ((1f / spanCount) * spacing)
+                outRect.right =
+                    right - (column + 1) * right / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = top // item top
+                }
+            }
+        }
+    }
+}

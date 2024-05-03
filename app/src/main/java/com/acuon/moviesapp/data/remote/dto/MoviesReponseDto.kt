@@ -1,6 +1,7 @@
 package com.acuon.moviesapp.data.remote.dto
 
 
+import com.acuon.moviesapp.domain.model.FavoriteMovieItem
 import com.acuon.moviesapp.domain.model.MovieItem
 import com.google.gson.annotations.SerializedName
 
@@ -92,6 +93,23 @@ data class MoviesItemDTO(
 
 fun MoviesItemDTO.toMovieItem(): MovieItem {
     return MovieItem(
+        trackId = trackId,
+        name = trackName,
+        poster = artworkUrl100,
+        shortDescription = shortDescription,
+        longDescription = longDescription,
+        releaseDate = releaseDate,
+        length = trackTimeMillis,
+        contentAdvisoryRating = contentAdvisoryRating,
+        trailerUrl = previewUrl,
+        genre = primaryGenreName,
+        price = trackHdPrice,
+        currency = currency
+    )
+}
+
+fun MoviesItemDTO.toCachedMovieItem(): FavoriteMovieItem {
+    return FavoriteMovieItem(
         trackId = trackId,
         name = trackName,
         poster = artworkUrl100,

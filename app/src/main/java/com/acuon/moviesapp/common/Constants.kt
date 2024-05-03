@@ -10,5 +10,5 @@ object Endpoints {
 }
 
 object BundleKeys {
-    const val MOVIE_ITEM = "movie_item"
+    const val MOVIE_ID = "movie_id"
 }

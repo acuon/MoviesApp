@@ -1,6 +1,7 @@
 package com.acuon.moviesapp.data.remote
 
 import com.acuon.moviesapp.common.Endpoints
+import com.acuon.moviesapp.data.remote.dto.MoviesResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -18,7 +19,5 @@ interface MoviesApi {
         @Query("term") term: String,
         @Query("media") media: String = "movie",
         @Query("country") country: String = "au",
-        @Query("limit") limit: Int = 10,
-        @Query("offset") offset: Int = 10
-    )
+    ): MoviesResponseDto?
 }
