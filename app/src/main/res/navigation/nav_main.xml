@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.acuon.moviesapp.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.acuon.moviesapp.ui.movie_detail.MovieDetailFragment"
+        android:label="MovieDetailFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.acuon.moviesapp.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
 </navigation>
