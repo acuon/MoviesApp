@@ -3,6 +3,7 @@ package com.acuon.moviesapp.common
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.acuon.moviesapp.data.pref.MoviesPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -12,6 +13,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseViewModel : ViewModel() {
 
     private val mIsLoading = ObservableBoolean()
+    protected val pref by lazy { MoviesPreferences() }
 
     fun getIsLoading(): ObservableBoolean {
         return mIsLoading

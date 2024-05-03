@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.acuon.moviesapp.data.pref.MoviesPreferences
 import com.acuon.moviesapp.utils.extensions.hideSoftKeyboard
 import com.acuon.moviesapp.utils.extensions.showToast
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     private var mActivity: BaseActivity<*>? = null
     private var mRootView: View? = null
+    protected val pref by lazy { MoviesPreferences() }
 
     protected lateinit var binding: T
 

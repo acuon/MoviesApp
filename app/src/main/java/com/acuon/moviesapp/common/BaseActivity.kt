@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.acuon.moviesapp.data.pref.MoviesPreferences
 import com.acuon.moviesapp.utils.extensions.hideSoftKeyboard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ abstract class BaseActivity<T : ViewDataBinding?> :
     AppCompatActivity(), BaseFragment.Callback {
 
     protected var binding: T? = null
+    protected val pref by lazy { MoviesPreferences() }
 
     // layout reference
     @LayoutRes
@@ -43,7 +45,6 @@ abstract class BaseActivity<T : ViewDataBinding?> :
     fun requestPermissionsSafely(permissions: Array<String?>?, requestCode: Int) {
         requestPermissions(permissions!!, requestCode)
     }
-
 
     protected abstract fun setupViews()
     protected abstract fun bindViewModel()
