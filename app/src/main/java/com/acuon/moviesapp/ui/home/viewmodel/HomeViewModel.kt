@@ -4,13 +4,11 @@ import androidx.lifecycle.viewModelScope
 import com.acuon.moviesapp.common.BaseViewModel
 import com.acuon.moviesapp.common.ResultOf
 import com.acuon.moviesapp.domain.model.MovieItem
-import com.acuon.moviesapp.domain.use_case.AddMovieUseCase
 import com.acuon.moviesapp.domain.use_case.GetCachedMoviesUseCase
-import com.acuon.moviesapp.domain.use_case.RemoveMovieUseCase
 import com.acuon.moviesapp.domain.use_case.SearchMoviesUseCase
+import com.acuon.moviesapp.domain.use_case.UpdateFavoriteStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,13 +20,12 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val cachedMoviesUseCase: GetCachedMoviesUseCase,
-    private val addMovieUseCase: AddMovieUseCase,
-    private val removeMovieUseCase: RemoveMovieUseCase
+    private val updateFavoriteStatusUseCase: UpdateFavoriteStatusUseCase
 ) :
     BaseViewModel() {
 
     init {
-        searchMovies("star")
+        searchMovies("")
     }
 
     private val _moviesListState = MutableStateFlow<ResultOf<List<MovieItem>>>(ResultOf.Loading())
@@ -55,15 +52,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun addToFavorite(movie: MovieItem) {
+    fun updateFavoriteStatus(movieItem: MovieItem?, isFavorite: Boolean) {
         execute {
-            addMovieUseCase.invoke(movie).launchIn(viewModelScope)
-        }
-    }
-
-    fun removeFromFavorite(movie: MovieItem) {
-        execute {
-            removeMovieUseCase.invoke(movie).launchIn(viewModelScope)
+            updateFavoriteStatusUseCase.invoke(movieItem!!, isFavorite).launchIn(viewModelScope)
         }
     }
 

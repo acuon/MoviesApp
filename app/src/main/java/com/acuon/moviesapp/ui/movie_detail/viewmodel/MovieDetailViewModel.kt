@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.acuon.moviesapp.common.BaseViewModel
 import com.acuon.moviesapp.common.ResultOf
 import com.acuon.moviesapp.domain.model.MovieItem
-import com.acuon.moviesapp.domain.use_case.AddMovieUseCase
 import com.acuon.moviesapp.domain.use_case.GetSingleMovieUseCase
-import com.acuon.moviesapp.domain.use_case.RemoveMovieUseCase
 import com.acuon.moviesapp.domain.use_case.UpdateFavoriteStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -29,17 +27,18 @@ class MovieDetailViewModel @Inject constructor(
     val isFavorite = ObservableField<Boolean>()
     val movie = ObservableField<MovieItem>()
 
-    fun getMovieById(trackId: Long) {
+    fun getMovieById(trackId: Long, fromFavorite: Boolean) {
         execute {
-            singleMovieUseCase.invoke(trackId).collect {
+            singleMovieUseCase.invoke(trackId, fromFavorite).collect {
                 _movieItem.value = it
             }
         }
     }
 
-    fun updateFavoriteStatus(trackId: Long?, isFavorite: Boolean) {
+    fun updateFavoriteStatus(movieItem: MovieItem?, favorite: Boolean) {
         execute {
-            updateFavoriteStatusUseCase.invoke(trackId!!, isFavorite).launchIn(viewModelScope)
+            updateFavoriteStatusUseCase.invoke(movieItem!!, favorite).launchIn(viewModelScope)
+            isFavorite.set(isFavorite.get() != true)
         }
     }
 }
