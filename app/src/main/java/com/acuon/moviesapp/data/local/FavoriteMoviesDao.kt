@@ -19,6 +19,9 @@ interface FavoriteMoviesDao {
     @Delete
     fun removeMovie(movie: FavoriteMovieItem)
 
+    @Query("DELETE FROM FavoriteMoviesDatabase WHERE trackId = :trackId")
+    fun deleteFromDatabase(trackId: Long)
+
     @Query("SELECT * FROM FavoriteMoviesDatabase WHERE trackId = :trackId")
     fun getMovieById(trackId: Long): FavoriteMovieItem?
 
