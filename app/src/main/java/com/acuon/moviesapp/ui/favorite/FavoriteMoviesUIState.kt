@@ -1,11 +1,11 @@
-package com.acuon.moviesapp.ui.home
+package com.acuon.moviesapp.ui.favorite
 
 import android.content.Context
 import com.acuon.moviesapp.R
 import com.acuon.moviesapp.common.ResultOf
 import com.acuon.moviesapp.domain.model.MovieItem
 
-data class MoviesListUIState(
+data class FavoriteMoviesUIState(
     private val state: ResultOf<List<MovieItem>>
 ) {
 
