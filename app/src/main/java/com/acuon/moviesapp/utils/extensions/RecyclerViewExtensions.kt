@@ -3,19 +3,8 @@ package com.acuon.moviesapp.utils.extensions
 import android.content.Context
 import android.graphics.Rect
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.acuon.moviesapp.utils.GridLayoutManagerWrapper
-import com.acuon.moviesapp.utils.LinearLayoutManagerWrapper
-
-fun RecyclerView.verticalView(context: Context, stackEnd: Boolean = false) {
-    layoutManager = LinearLayoutManagerWrapper(context).apply { stackFromEnd = stackEnd }
-    layoutManager
-}
-
-fun RecyclerView.horizontalView(context: Context) {
-    layoutManager = LinearLayoutManagerWrapper(context, LinearLayoutManager.HORIZONTAL, false)
-}
 
 fun RecyclerView.gridView(context: Context, spanCount: Int) {
     layoutManager = GridLayoutManagerWrapper(context, spanCount)
