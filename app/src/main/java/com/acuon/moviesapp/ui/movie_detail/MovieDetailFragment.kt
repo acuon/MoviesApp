@@ -1,11 +1,11 @@
 package com.acuon.moviesapp.ui.movie_detail
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.acuon.moviesapp.R
 import com.acuon.moviesapp.common.BaseFragment
 import com.acuon.moviesapp.common.BundleKeys
@@ -16,13 +16,17 @@ import com.acuon.moviesapp.ui.movie_detail.viewmodel.MovieDetailViewModel
 import com.acuon.moviesapp.utils.extensions.executeWithAction
 import com.acuon.moviesapp.utils.extensions.gone
 import com.acuon.moviesapp.utils.extensions.show
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     override fun getLayoutId() = R.layout.fragment_movie_detail
 
     private val viewModel: MovieDetailViewModel by activityViewModels()
 
     private val trackId by lazy { arguments?.getLong(BundleKeys.MOVIE_ID) }
+    private val fromFavorite by lazy { arguments?.getBoolean(BundleKeys.FAVORITE_MOVIE_KEY) }
+
     override fun onResume() {
         super.onResume()
         pref.currentScreen = Screens.MOVIE_DETAIL.value
@@ -34,8 +38,12 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
     }
 
     override fun setupViews() {
-        viewModel.getMovieById(trackId ?: pref.lastMovieId)
+        viewModel.getMovieById(trackId ?: pref.lastMovieId, fromFavorite == true)
         binding.apply {
+            header.apply {
+                ivLeftIcon.setImageResource(R.drawable.ic_back_arrow)
+                ivLeftIcon.setOnClickListener(clickListener)
+            }
             rgOptions.setOnCheckedChangeListener { _, id ->
                 when (id) {
                     rbDescription.id -> handleOptions(false)
@@ -102,11 +110,15 @@ class MovieDetailFragment : BaseFragment<FragmentMovieDetailBinding>() {
             binding.layoutFavorite -> {
                 if (viewModel.isFavorite.get() == true) {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite)
-                    viewModel.movie.get()?.let { viewModel.updateFavoriteStatus(it.trackId, false) }
+                    viewModel.movie.get()?.let { viewModel.updateFavoriteStatus(it, false) }
                 } else {
                     binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
-                    viewModel.movie.get()?.let { viewModel.updateFavoriteStatus(it.trackId, true) }
+                    viewModel.movie.get()?.let { viewModel.updateFavoriteStatus(it, true) }
                 }
+            }
+
+            binding.header.ivLeftIcon -> {
+                findNavController().popBackStack()
             }
         }
     }

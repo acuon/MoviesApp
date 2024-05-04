@@ -26,6 +26,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     @Inject
     lateinit var moviesAdapter: MoviesAdapter
+
     private val viewModel: HomeViewModel by activityViewModels()
     override fun getLayoutId() = R.layout.fragment_home
 
@@ -37,6 +38,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setupViews() {
         binding.apply {
+            header.apply {
+                tvHeading.text = getString(R.string.app_name)
+                ivRightIcon.setImageResource(R.drawable.ic_favorite)
+                ivRightIcon.setOnClickListener(clickListener)
+            }
             rcvMovies.apply {
                 gridView(context, 2)
                 this.adapter = moviesAdapter
@@ -46,31 +52,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setupListeners()
     }
 
+    private var previousQuery: String? = null
+
     private fun setupListeners() {
         moviesAdapter.setOnMovieClickListener { _, movie ->
             findNavController().navigate(
                 R.id.action_homeFragment_to_movieDetailFragment,
-                bundleOf(BundleKeys.MOVIE_ID to movie?.trackId)
+                bundleOf(
+                    BundleKeys.MOVIE_ID to movie?.trackId,
+                    BundleKeys.FAVORITE_MOVIE_KEY to false
+                )
             )
-            showToast("${movie?.name} clicked")
         }
         moviesAdapter.setOnFavoriteClickListener { _, movie ->
             movie?.let {
-                if (it.isFavorite) {
-                    viewModel.addToFavorite(it)
-                } else viewModel.removeFromFavorite(it)
+                viewModel.updateFavoriteStatus(it, it.isFavorite)
             }
         }
         binding.apply {
             etSearch.addTextChangedListener {
-                runDelayed(100) {
-                    if (it.toString().isEmpty()) {
-                        viewModel.cancelSearch()
-                    } else {
-                        viewModel.searchMovies(it.toString())
+                val query = it.toString()
+                if (query != previousQuery) {
+                    runDelayed(100) {
+                        viewModel.searchMovies(query)
                     }
+                    previousQuery = query
                 }
             }
+            btnRetry.setOnClickListener(clickListener)
         }
     }
 
@@ -84,9 +93,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun onViewClicked(view: View?) {
-        binding.apply {
-            when (view) {
+        when (view) {
+            binding.header.ivRightIcon -> {
+                findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
+            }
 
+            binding.btnRetry -> {
+                viewModel.searchMovies(previousQuery.toString())
             }
         }
     }
