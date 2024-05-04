@@ -11,4 +11,5 @@ object Endpoints {
 
 object BundleKeys {
     const val MOVIE_ID = "movie_id"
+    const val FAVORITE_MOVIE_KEY = "favorite_movie_key"
 }
