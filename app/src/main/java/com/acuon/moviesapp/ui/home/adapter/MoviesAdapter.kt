@@ -47,9 +47,11 @@ class MoviesAdapter @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.V
                 onMovieClick?.invoke(position, movie)
             }
             binding.layoutFavorite.setOnClickListener {
-                movie?.isFavorite = !(movie?.isFavorite ?: false)
-                notifyItemChanged(position)
-                onFavoriteClick?.invoke(position, movie)
+                movie?.let {
+                    it.isFavorite = !it.isFavorite
+                    notifyItemChanged(position)
+                    onFavoriteClick?.invoke(position, it)
+                }
             }
         }
     }
