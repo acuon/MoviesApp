@@ -70,6 +70,7 @@ fun MovieItem.toFavoriteMovieItem(): FavoriteMovieItem {
         trailerUrl = trailerUrl,
         genre = genre,
         price = price,
-        currency = currency
+        currency = currency,
+        isFavorite = isFavorite
     )
 }

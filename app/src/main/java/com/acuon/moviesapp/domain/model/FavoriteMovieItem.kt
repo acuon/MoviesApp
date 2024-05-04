@@ -57,3 +57,21 @@ data class FavoriteMovieItem(
         get() = "${length?.toMinutes()}m"
 }
 
+fun FavoriteMovieItem.toMovieItem(): MovieItem {
+    return MovieItem(
+        trackId = trackId,
+        name = name,
+        poster = poster,
+        shortDescription = shortDescription,
+        longDescription = longDescription,
+        releaseDate = releaseDate,
+        length = length,
+        contentAdvisoryRating = contentAdvisoryRating,
+        trailerUrl = trailerUrl,
+        genre = genre,
+        price = price,
+        currency = currency,
+        isFavorite = isFavorite
+    )
+}
+
