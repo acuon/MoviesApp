@@ -1,10 +1,12 @@
 package com.acuon.moviesapp.bindingadapter
 
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.acuon.moviesapp.utils.extensions.dp
 import com.acuon.moviesapp.utils.extensions.setImageRoundCornerCenterCrop
+import com.acuon.moviesapp.utils.extensions.setupClearButtonWithAction
 
 object BindingAdapters {
 
@@ -24,6 +26,14 @@ object BindingAdapters {
     @BindingAdapter("text")
     fun setText(view: TextView, text: Any?) {
         view.text = text.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("clearButton")
+    fun showClearButton(view: EditText, boolean: Boolean?) {
+        if (boolean == true) {
+            view.setupClearButtonWithAction()
+        }
     }
 
 }
