@@ -9,6 +9,9 @@ import androidx.room.Transaction
 import com.acuon.moviesapp.domain.model.MovieItem
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Dao interface for Movies cache
+ */
 @Dao
 interface MoviesDao {
 

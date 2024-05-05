@@ -9,8 +9,20 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+
+/**
+ * Use case for retrieving cached movies from the repository.
+ * This use case emits a flow of [ResultOf] that represents the result of the operation.
+ *
+ * @param repository the repository implementation of HomeRepository.
+ */
 class GetCachedMoviesUseCase @Inject constructor(private val repository: HomeRepositoryImpl) {
 
+    /**
+     * Retrieves cached movies from the repository as a flow of [ResultOf].
+     *
+     * @return A flow emitting the result of the operation.
+     */
     suspend operator fun invoke(): Flow<ResultOf<List<MovieItem>>> = flow {
         try {
             emit(ResultOf.Loading())

@@ -22,16 +22,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * Dagger Hilt module that provides various dependencies for the application
+ * This module includes providers for Retrofit, OkHttpClient, Room database, API services and repository implementations
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    /**
+     * provides the MoviesApi service using Retrofit
+     */
     @Provides
     @Singleton
     fun provideMoviesApi(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
     }
 
+    /**
+     * provides the implementation of the Home repository
+     */
     @Provides
     @Singleton
     fun providesMoviesRepository(
@@ -41,6 +51,9 @@ object AppModule {
         return HomeRepositoryImpl(apiService, moviesDao)
     }
 
+    /**
+     * provides the implementation of the Favorite Movie repository
+     */
     @Provides
     @Singleton
     fun providesFavoriteMoviesRepository(
@@ -49,18 +62,27 @@ object AppModule {
         return FavoriteMovieRepositoryImpl(favoriteMoviesDao)
     }
 
+    /**
+     * provides the MoviesDao for accessing regular movies in the database
+     */
     @Provides
     @Singleton
     fun provideMoviesDao(database: MoviesDatabase): MoviesDao {
         return database.getMoviesDao()
     }
 
+    /**
+     * provides the FavoriteMoviesDao for accessing favorite movies in the database
+     */
     @Provides
     @Singleton
     fun provideCachedMoviesDao(database: MoviesDatabase): FavoriteMoviesDao {
         return database.getFavoriteMoviesDao()
     }
 
+    /**
+     * provides the MoviesDatabase instance using Room
+     */
     @Provides
     @Singleton
     fun provideMoviesDatabase(application: Application): MoviesDatabase {
@@ -71,6 +93,9 @@ object AppModule {
         ).fallbackToDestructiveMigration().build()
     }
 
+    /**
+     * provides the Retrofit instance with a base URL and Gson converter factory
+     */
     @Provides
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
@@ -78,6 +103,9 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
+    /**
+     * provides the OkHttpClient instance with a logging interceptor
+     */
     @Provides
     @Singleton
     fun provideOkHttpClient(
@@ -89,6 +117,9 @@ object AppModule {
         return okHttpClient.build()
     }
 
+    /**
+     * provides the HttpLoggingInterceptor instance for logging network requests and responses
+     */
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {

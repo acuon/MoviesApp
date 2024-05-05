@@ -11,7 +11,19 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for retrieving favorite movies from the repository.
+ * This use case emits a flow of [ResultOf] that represents the result of the operation.
+ *
+ * @param repository The repository implementation of FavoriteMovieRepository.
+ */
 class GetFavoriteMoviesUseCase @Inject constructor(private val repository: FavoriteMovieRepositoryImpl) {
+
+    /**
+     * Retrieves favorite movies from the repository as a flow of [ResultOf].
+     *
+     * @return A flow emitting the result of the operation.
+     */
     suspend operator fun invoke(): Flow<ResultOf<List<MovieItem>>> = flow {
         try {
             emit(ResultOf.Loading())

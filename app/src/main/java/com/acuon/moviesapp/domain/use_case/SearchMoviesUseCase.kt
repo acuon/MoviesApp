@@ -16,11 +16,24 @@ import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * Use case for searching movies and updating the local database with the search results.
+ * This use case emits a flow of [ResultOf] that represents the result of the operation.
+ *
+ * @param repository The repository implementation of HomeRepository.
+ * @param moviesDao The DAO object of MoviesDao(movie cache).
+ */
 class SearchMoviesUseCase @Inject constructor(
     private val repository: HomeRepositoryImpl,
     private val moviesDao: MoviesDao
 ) {
 
+    /**
+     * Searches for movies based on the provided query and updates the local database(cache) with the search results.
+     *
+     * @param query The searched query.
+     * @return A flow emitting the result of the operation.
+     */
     suspend operator fun invoke(query: String): Flow<ResultOf<List<MovieItem>>> = flow {
         try {
             emit(ResultOf.Loading())
@@ -37,7 +50,7 @@ class SearchMoviesUseCase @Inject constructor(
             emit(ResultOf.Success(cachedMovies))
         } catch (e: Exception) {
             emit(ResultOf.Error(e.localizedMessage ?: "Something went wrong"))
-            Timber.tag("Response").d(e.toString())
+            Timber.tag("SearchMoviesUseCase").d(e.toString())
         } catch (e: IOException) {
             emit(ResultOf.Error(e.localizedMessage ?: "Something went wrong"))
         }

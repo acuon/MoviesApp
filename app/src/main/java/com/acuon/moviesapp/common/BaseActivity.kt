@@ -20,6 +20,10 @@ abstract class BaseActivity<T : ViewDataBinding?> :
     AppCompatActivity(), BaseFragment.Callback {
 
     protected var binding: T? = null
+
+    /**
+     * creating a protected instance of preference to be accessed by child classes
+     */
     protected val pref by lazy { MoviesPreferences() }
 
     // layout reference
@@ -50,6 +54,9 @@ abstract class BaseActivity<T : ViewDataBinding?> :
     protected abstract fun bindViewModel()
     protected abstract fun onViewClicked(view: View?)
 
+    /**
+     * clickListener for views
+     */
     var clickListener =
         View.OnClickListener { view ->
             hideSoftKeyboard()
@@ -62,6 +69,17 @@ abstract class BaseActivity<T : ViewDataBinding?> :
         binding!!.executePendingBindings()
     }
 
+    /**
+     * runs a job or task after a delay of set interval time
+     *
+     * @param delayMilliSec - time for which the task should be delayed
+     * @param job - your action or task
+     *
+     * Usage Example:
+     *```runDelayed(1000L) {
+     *      //your task
+     * }
+     */
     fun runDelayed(delayMilliSec: Long, job: suspend () -> Unit) =
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {

@@ -8,8 +8,15 @@ import com.acuon.moviesapp.utils.extensions.executeWithAction
 import com.acuon.moviesapp.utils.extensions.inflater
 import javax.inject.Inject
 
+/**
+ * Adapter for displaying a list of searched movies in a RecyclerView.
+ * This adapter is responsible for binding movie data to ItemLayoutMoviesBinding.
+ */
 class MoviesAdapter @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
+    /**
+     * The list of searched movies to display.
+     */
     var list: List<MovieItem?>? = null
         set(value) {
             field = value
@@ -27,13 +34,23 @@ class MoviesAdapter @Inject constructor() : RecyclerView.Adapter<MoviesAdapter.V
         holder.bind(position, list?.get(position))
     }
 
+    /**
+     * Listener for MovieItem click.
+     */
     private var onMovieClick: ((Int, MovieItem?) -> Unit)? = null
+    /**
+     * Listener for Favorite click.
+     */
     private var onFavoriteClick: ((Int, MovieItem?) -> Unit)? = null
-
+    /**
+     * Sets a listener to handle clicks on MovieItem.
+     */
     fun setOnMovieClickListener(listener: (Int, MovieItem?) -> Unit) {
         onMovieClick = listener
     }
-
+    /**
+     * Sets a listener to handle clicks on Favorite icon.
+     */
     fun setOnFavoriteClickListener(listener: (Int, MovieItem?) -> Unit) {
         onFavoriteClick = listener
     }

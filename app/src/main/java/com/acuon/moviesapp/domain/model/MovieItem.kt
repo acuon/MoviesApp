@@ -9,6 +9,9 @@ import com.acuon.moviesapp.utils.extensions.serverToPrettyDate
 import com.acuon.moviesapp.utils.extensions.toMinutes
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Entity table for MoviesDatabase(Movies Cache)
+ */
 @Entity(tableName = "MoviesDatabase")
 @Parcelize
 data class MovieItem(
@@ -57,6 +60,9 @@ data class MovieItem(
         get() = "${length?.toMinutes()}m"
 }
 
+/**
+ * extension function to convert MovieItem object to FavoriteMovieItem
+ */
 fun MovieItem.toFavoriteMovieItem(): FavoriteMovieItem {
     return FavoriteMovieItem(
         trackId = trackId,

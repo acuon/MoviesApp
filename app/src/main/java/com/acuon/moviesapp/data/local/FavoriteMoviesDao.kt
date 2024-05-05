@@ -8,6 +8,9 @@ import androidx.room.Query
 import com.acuon.moviesapp.domain.model.FavoriteMovieItem
 import com.acuon.moviesapp.domain.model.MovieItem
 
+/**
+ * Dao interface for Favorite Movies database
+ */
 @Dao
 interface FavoriteMoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

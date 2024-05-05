@@ -5,6 +5,9 @@ import com.acuon.moviesapp.domain.model.FavoriteMovieItem
 import com.acuon.moviesapp.domain.repository.IFavoriteMovieRepository
 import javax.inject.Inject
 
+/**
+ * Repository Implementation for Favorite Movies
+ */
 class FavoriteMovieRepositoryImpl @Inject constructor(
     private val favoriteMoviesDao: FavoriteMoviesDao
 ) :

@@ -8,11 +8,9 @@ import retrofit2.http.Query
 interface MoviesApi {
 
     /**
-     * @param term the name of the movie to search.
-     * @param limit the number of items to download.
-     * @param offset the next batch of download.
-     *
-     * @see
+     * @param term the name of the movie to search
+     * @param media the media type to be fetched(movie, series, etc)
+     * @param country specifies the origin of data to be fetched(example - you only want Indian movies, then you can specify the country)
      */
     @GET(Endpoints.SEARCH)
     suspend fun searchMovies(

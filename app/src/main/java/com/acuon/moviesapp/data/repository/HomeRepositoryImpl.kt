@@ -1,15 +1,15 @@
 package com.acuon.moviesapp.data.repository
 
-import com.acuon.moviesapp.data.local.FavoriteMoviesDao
 import com.acuon.moviesapp.data.local.MoviesDao
 import com.acuon.moviesapp.data.remote.MoviesApi
 import com.acuon.moviesapp.data.remote.dto.MoviesResponseDto
-import com.acuon.moviesapp.domain.model.FavoriteMovieItem
 import com.acuon.moviesapp.domain.model.MovieItem
 import com.acuon.moviesapp.domain.repository.IHomeRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
+ * Repository implementation for Movies Cache
+ */
 class HomeRepositoryImpl @Inject constructor(
     private val apiService: MoviesApi,
     private val moviesDao: MoviesDao

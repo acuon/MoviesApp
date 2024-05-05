@@ -80,6 +80,25 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         mActivity?.hideSoftKeyboard()
     }
 
+    /**
+     * for binding the emission of items from FLOW API
+     * scope is lifecycle of associated view
+     *
+     * @param action action to be performed on each emmitted item
+     *
+     *
+     * Usage example:
+     * ```
+     * viewModel.yourDataFlow.bindTo { item ->
+     *      //your action
+     * }
+     * ```
+     * ```
+     * viewModel.yourDataFlow bindTo { item ->
+     *      //your action
+     * }
+     * ```
+     */
     protected inline infix fun <T> Flow<T>.bindTo(crossinline action: (T) -> Unit) {
         with(viewLifecycleOwner) {
             lifecycleScope.launch {
@@ -92,10 +111,30 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         }
     }
 
+    /**
+     * function to toast the message
+     * @param str - accepts a string message that you want to toast
+     *
+     * Usage Example:
+     * ```
+     * showToast("message to be toast")
+     * ```
+     */
     fun showToast(str: String) {
         mActivity?.showToast(str)
     }
 
+    /**
+     * runs a job or task after a delay of set interval time
+     *
+     * @param delayMilliSec - time for which the task should be delayed
+     * @param job - your action or task
+     *
+     * Usage Example:
+     *```runDelayed(1000L) {
+     *      //your task
+     * }
+     */
     fun runDelayed(delayMilliSec: Long, job: suspend () -> Unit) =
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {

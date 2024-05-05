@@ -11,10 +11,25 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for retrieving a single movie either from the repository or from favorite movies repository.
+ * This use case emits a flow of [ResultOf] that represents the result of the operation.
+ *
+ * @param repository The repository implementation of HomeRepository.
+ * @param favoritesRepository The repository implementation of FavoriteMovieRepository.
+ */
 class GetSingleMovieUseCase @Inject constructor(
     private val repository: HomeRepositoryImpl,
     private val favoritesRepository: FavoriteMovieRepositoryImpl
 ) {
+
+    /**
+     * Retrieves a single movie by its unique identifier, either from the main homeRepository or from favoriteMoviesRepository.
+     *
+     * @param trackId unique identifier in Movie Table entity.
+     * @param fromFavorite to decide whether to retrieve it from(movie cache or favorite moviess).
+     * @return A flow emitting the result of the operation.
+     */
     suspend operator fun invoke(trackId: Long, fromFavorite: Boolean): Flow<ResultOf<MovieItem?>> =
         flow {
             try {

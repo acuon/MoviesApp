@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import kotlin.reflect.KProperty
 
+/**
+ * custom implementation of Preferences
+ */
 abstract class Preferences {
 
     companion object {

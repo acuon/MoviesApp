@@ -1,5 +1,8 @@
 package com.acuon.moviesapp.common
 
+/**
+ * contains the constants to be used in the app
+ */
 object Constants {
     const val BASE_URL = "https://itunes.apple.com/"
 }

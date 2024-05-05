@@ -13,10 +13,25 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
+/**
+ * Use case for updating the favorite status of a movie.
+ * This use case emits a flow of [ResultOf] that represents the result of the operation.
+ *
+ * @param repository The repository implementation of HomeRepository.
+ * @param favoriteRepository The repository implementation of FavoriteMovieRepository.
+ */
 class UpdateFavoriteStatusUseCase @Inject constructor(
     private val repository: HomeRepositoryImpl,
     private val favoriteRepository: FavoriteMovieRepositoryImpl
 ) {
+
+    /**
+     * Updates the favorite status of a movie and notifies the repositories accordingly.
+     *
+     * @param movieItem The movie object for which the status is to be updated in database.
+     * @param isFavorite Whether to mark the movie as favorite or not.
+     * @return A flow emitting the result of the operation.
+     */
     suspend operator fun invoke(movieItem: MovieItem, isFavorite: Boolean): Flow<ResultOf<String>> =
         flow {
             try {
